@@ -31,49 +31,59 @@ void main() {
       case 2:
         print("Enter what task you need to update");
         String description = stdin.readLineSync()!;
-        for (var task in tasks) {
-          if (task.description == description) {
-            print("Task founded, what do you want to update :");
-            print("Enter 1 to description");
-            print("Enter 2 to dueDate");
-            print("Enter 3 to status");
-            int updateChoice = int.parse(stdin.readLineSync()!);
-            switch (updateChoice) {
-              case 1:
-                print("Enter new description : ");
-                String description = stdin.readLineSync()!;
-                task.description = description;
-                break;
-              case 2:
-                print("Enter new date : ");
-                String dueDate = stdin.readLineSync()!;
-                task.dueDate = dueDate;
-                break;
-              case 3:
-                print("Enter new status : ");
-                bool status = bool.parse(stdin.readLineSync()!);
-                task.status = status;
-                break;
-              default:
-                print("wrong input");
-                break;
-            }
-          } else {
-            print("Task not founded");
+        bool foundTask = false;
+        int index = 0;
+        for (int i = 0; i < tasks.length; i++) {
+          if (tasks[i].description == description) {
+            foundTask = true;
+            index = i;
           }
+        }
+        if (foundTask) {
+          print("Task founded, what do you want to update :");
+          print("Enter 1 to description");
+          print("Enter 2 to dueDate");
+          print("Enter 3 to status");
+          int updateChoice = int.parse(stdin.readLineSync()!);
+          switch (updateChoice) {
+            case 1:
+              print("Enter new description : ");
+              String description = stdin.readLineSync()!;
+              tasks[index].description = description;
+              break;
+            case 2:
+              print("Enter new date : ");
+              String dueDate = stdin.readLineSync()!;
+              tasks[index].dueDate = dueDate;
+              break;
+            case 3:
+              print("Enter new status : ");
+              bool status = bool.parse(stdin.readLineSync()!);
+              tasks[index].status = status;
+              break;
+            default:
+              print("wrong input");
+              break;
+          }
+        } else {
+          print("not founded");
         }
         break;
       case 3:
         print("What task do you want to delete : ");
         String description = stdin.readLineSync()!;
+        bool foundTask = false;
         for (var task in tasks) {
           if (task.description == description) {
-            print("Task founded");
-          } else {
-            print("Task not found");
+            foundTask = true;
           }
         }
-        tasks.removeWhere((task) => task.description == description);
+        if (foundTask) {
+          print("foundTask");
+          tasks.removeWhere((task) => task.description == description);
+        } else {
+          print("not founded");
+        }
         break;
       case 4:
         if (tasks.isNotEmpty) {
