@@ -22,10 +22,17 @@ void main() {
 }
 
 class Book {
+<<<<<<< HEAD
   final String title;
   final String author;
   final bool isBorrwed;
   final bool isAvailable;
+=======
+  String title;
+  String author;
+  bool isBorrwed;
+  bool isAvailable;
+>>>>>>> bde002c1fc2317d47cf306801e9bd1addecb0d13
   Book({
     required this.title,
     required this.author,
@@ -35,6 +42,7 @@ class Book {
 }
 
 class Library {
+<<<<<<< HEAD
   List<Book> _books = [];
 
   addBook(Book book) {
@@ -49,11 +57,30 @@ class Library {
       } else {
         return "Book is already borrowed";
       }
+=======
+  List<Book> books = [];
+
+  addBook(Book book) {
+    books.add(book);
+  }
+
+  borrowBook(Book book) {
+    if (books.contains(book)) {
+      if (book.isAvailable == true) {
+        book.isBorrwed = true;
+        return book.isBorrwed;
+      } else
+        return "Book is already borrowed";
+>>>>>>> bde002c1fc2317d47cf306801e9bd1addecb0d13
     }
   }
 
   returnBook(Book book) {
+<<<<<<< HEAD
     if (_books.contains(book)) {
+=======
+    if (books.contains(book)) {
+>>>>>>> bde002c1fc2317d47cf306801e9bd1addecb0d13
       if (book.isAvailable == false) {
         book.isAvailable = true;
         return book.isAvailable;
@@ -64,10 +91,16 @@ class Library {
 
   searchByTitle(String title) {
     bool isFound = false;
+<<<<<<< HEAD
     for (var book in _books) {
       if (title == book.title) {
         isFound = true;
         break;
+=======
+    for (var book in books) {
+      if (title == book.title) {
+        isFound = true;
+>>>>>>> bde002c1fc2317d47cf306801e9bd1addecb0d13
       }
     }
     if (isFound) {
