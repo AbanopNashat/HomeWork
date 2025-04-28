@@ -3,9 +3,35 @@ import 'package:tasks_app/models/task_model.dart';
 import 'package:tasks_app/widgets/custom_add_icon.dart';
 import 'package:tasks_app/widgets/custom_text_field.dart';
 
-class AddTextBar extends StatelessWidget {
-  const AddTextBar({super.key, required this.tasksManager});
+class AddTextBar extends StatefulWidget {
+  AddTextBar({super.key, required this.tasksManager, this.onTaskAdded});
   final TasksManager tasksManager;
+  final VoidCallback? onTaskAdded;
+
+  @override
+  State<AddTextBar> createState() => _AddTextBarState();
+}
+
+class _AddTextBarState extends State<AddTextBar> {
+  final TextEditingController textEditingController = TextEditingController();
+  late final CustomTextField textField;
+
+  @override
+  void initState() {
+    super.initState();
+    textField = CustomTextField(
+      tasksManager: widget.tasksManager,
+      controller: textEditingController,
+      onTaskAdded: widget.onTaskAdded,
+    );
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -32,10 +58,10 @@ class AddTextBar extends StatelessWidget {
                     vertical: 8.0,
                     horizontal: 16.0,
                   ),
-                  child: CustomTextField(tasksManager: tasksManager,),
+                  child: textField,
                 ),
               ),
-              CustomAddIcon(),
+              CustomAddIcon(onPresssed: textField.sumbitTask),
             ],
           ),
         ),
