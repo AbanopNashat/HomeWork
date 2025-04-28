@@ -12,10 +12,15 @@ class TasksHomeScreen extends StatefulWidget {
   State<TasksHomeScreen> createState() => _TasksHomeScreenState();
 }
 
-class _TasksHomeScreenState extends State<TasksHomeScreen> {
-  late TasksManager tasksManager;
 
-  final List<TaskModel> tasks = [];
+class _TasksHomeScreenState extends State<TasksHomeScreen> {
+  TasksManager tasksManager = TasksManager();
+
+  void updateUI() {
+    setState(() {
+      // Rebuild the UI with updated tasks
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,22 +32,25 @@ class _TasksHomeScreenState extends State<TasksHomeScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: 10,
+            child: tasksManager.tasks.isNotEmpty ? ListView.builder(
+              itemCount: tasksManager.tasks.length,
               itemBuilder: (context, index) {
                 return TaskCard(
-                  taskModel: TaskModel(
-                    content: "new task",
-                    dateTime: DateFormat('dd/MM/yyyy').format(DateTime.now()),
-                  ),
+                  tasksManager: tasksManager,
+                  index: index,
+                  onTaskChanged: updateUI, // Pass callback to TaskCard
                 );
               },
-            ),
+            ) : NoTasksState(),
           ),
-          AddTextBar(tasksManager: tasksManager,),
+          AddTextBar(
+            tasksManager: tasksManager,
+            onTaskAdded: updateUI, // Pass callback to AddTextBar
+          ),
         ],
       ),
     );
+
   }
 }
 

@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tasks_app/models/task_model.dart';
 
 class TaskCard extends StatefulWidget {
-  const TaskCard({super.key, required this.taskModel});
-  final TaskModel taskModel;
+  TaskCard({
+    super.key,
+    required this.tasksManager,
+    this.index = 0,
+    this.onTaskChanged,
+  });
+  final TasksManager tasksManager;
+  int index;
+  final VoidCallback? onTaskChanged;
 
   @override
   State<TaskCard> createState() => _TaskCardState();
@@ -16,24 +23,38 @@ class _TaskCardState extends State<TaskCard> {
       leading: Checkbox(
         checkColor: Colors.white,
         activeColor: Colors.green,
-        value: widget.taskModel.isCompleted,
+        value: widget.tasksManager.tasks[widget.index].isCompleted,
         onChanged: (value) {
           setState(() {
-            widget.taskModel.isCompleted = value!;
+            widget.tasksManager.tasks[widget.index].isCompleted = value!;
+            // Call the callback when task is marked as completed/uncompleted
+            if (widget.onTaskChanged != null) {
+              widget.onTaskChanged!();
+            }
           });
         },
       ),
       title: Text(
-        widget.taskModel.content!,
+        widget.tasksManager.tasks[widget.index].content!,
         style: TextStyle(
           fontSize: 24,
           decoration:
-              widget.taskModel.isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
+              widget.tasksManager.tasks[widget.index].isCompleted
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
         ),
       ),
-      subtitle: Text("Created: ${widget.taskModel.dateTime}"),
+      subtitle: Text(
+        "Created: ${widget.tasksManager.tasks[widget.index].dateTime}",
+      ),
       trailing: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          widget.tasksManager.delete(widget.tasksManager.tasks[widget.index]);
+          // Call the callback when task is deleted
+          if (widget.onTaskChanged != null) {
+            widget.onTaskChanged!();
+          }
+        },
         icon: Icon(Icons.delete, color: Colors.red),
       ),
     );
