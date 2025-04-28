@@ -4,7 +4,7 @@ class TaskModel {
   String? content;
   String? dateTime;
   bool isCompleted;
-  TaskModel({this.content, this.dateTime , this.isCompleted = false});
+  TaskModel({this.content, this.dateTime, this.isCompleted = false});
 }
 
 class TasksManager {
@@ -17,12 +17,7 @@ class TasksManager {
     tasks.add(taskModel);
   }
 
-  void delete(dynamic task) {
-    // Allow deleting by either index or TaskModel
-    if (task is TaskModel) {
-      tasks.remove(task);
-    } else if (task is int && task >= 0 && task < tasks.length) {
-      tasks.removeAt(task);
-    }
+  void delete(TaskModel taskModel) {
+    tasks.remove(taskModel);
   }
 }
