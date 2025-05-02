@@ -58,10 +58,10 @@ class _AddTextBarState extends State<AddTextBar> {
                     vertical: 8.0,
                     horizontal: 16.0,
                   ),
-                  child: textField,
+                  child: textField, // added the custom text field here <---
                 ),
               ),
-              CustomAddIcon(onPresssed: textField.sumbitTask),
+              CustomAddIcon(onPresssed: textField.submitTask),
             ],
           ),
         ),

@@ -27,10 +27,6 @@ class _TaskCardState extends State<TaskCard> {
         onChanged: (value) {
           setState(() {
             widget.tasksManager.tasks[widget.index].isCompleted = value!;
-            // Call the callback when task is marked as completed/uncompleted
-            if (widget.onTaskChanged != null) {
-              widget.onTaskChanged!();
-            }
           });
         },
       ),

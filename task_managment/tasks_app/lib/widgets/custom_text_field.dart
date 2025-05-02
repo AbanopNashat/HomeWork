@@ -13,7 +13,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback? onTaskAdded;
 
-  void sumbitTask() {
+  void submitTask() {
     if (controller.text.isNotEmpty) {
       tasksManager.add(controller.text);
       controller.clear();
@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       onSubmitted: (value) {
-        sumbitTask();
+        submitTask();
       },
       decoration: InputDecoration(
         filled: true,
