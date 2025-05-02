@@ -12,7 +12,6 @@ class TasksHomeScreen extends StatefulWidget {
   State<TasksHomeScreen> createState() => _TasksHomeScreenState();
 }
 
-
 class _TasksHomeScreenState extends State<TasksHomeScreen> {
   TasksManager tasksManager = TasksManager();
 
@@ -32,16 +31,17 @@ class _TasksHomeScreenState extends State<TasksHomeScreen> {
       body: Column(
         children: [
           Expanded(
-            child: tasksManager.tasks.isNotEmpty ? ListView.builder(
-              itemCount: tasksManager.tasks.length,
-              itemBuilder: (context, index) {
-                return TaskCard(
-                  tasksManager: tasksManager,
-                  index: index,
-                  onTaskChanged: updateUI, // Pass callback to TaskCard
-                );
-              },
-            ) : NoTasksState(),
+            child:
+                tasksManager.tasks.isEmpty ? NoTasksState() : ListView.builder(
+                      itemCount: tasksManager.tasks.length,
+                      itemBuilder: (context, index) {
+                        return TaskCard(
+                          tasksManager: tasksManager,
+                          index: index,
+                          onTaskChanged: updateUI, // Pass callback to TaskCard
+                        );
+                      },
+                    ),
           ),
           AddTextBar(
             tasksManager: tasksManager,
@@ -50,7 +50,6 @@ class _TasksHomeScreenState extends State<TasksHomeScreen> {
         ],
       ),
     );
-
   }
 }
 
