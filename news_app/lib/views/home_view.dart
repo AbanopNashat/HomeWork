@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:news_app/widgets/category_card.dart';
 import 'package:news_app/widgets/category_list_view.dart';
-import 'package:news_app/widgets/news_list_view.dart';
+import 'package:news_app/widgets/news_list_view_builder.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -40,7 +39,7 @@ class HomeView extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(child: CategoryListView(cards: cards)),
           SliverToBoxAdapter(child: SizedBox(height: 16)),
-          NewsListView(),
+          NewsListViewBuilder(category: "general"),
         ],
       ),
       //Column(
