@@ -10,17 +10,20 @@ class QuestionOptions extends StatefulWidget {
   State<QuestionOptions> createState() => _QuestionOptionsState();
 }
 
-class _QuestionOptionsState extends State<QuestionOptions> {
+class _QuestionOptionsState extends State<QuestionOptions>
+    with AutomaticKeepAliveClientMixin {
   int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return ListView.builder(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: widget.selections.length,
       itemBuilder: (context, index) {
         return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child:
               selectedIndex == index
                   ? ActiveQuestionSelection(selection: widget.selections[index])
@@ -36,8 +39,8 @@ class _QuestionOptionsState extends State<QuestionOptions> {
       },
     );
   }
-}
 
-// selectedIndex == index
-//             ? ActiveQuestionSelection(selection: widget.selections[index])
-//             : InActiveQuestionSelection(selection: widget.selections[index]);
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+}

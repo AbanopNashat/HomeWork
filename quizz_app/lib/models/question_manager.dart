@@ -1,12 +1,14 @@
 import 'package:quizz_app/models/question_model.dart';
 
 class QuestionManager {
-  final List<QuestionModel> questions;
-
   QuestionManager({required this.questions});
 
+  final List<QuestionModel> questions;
+
   updateQuestion(QuestionModel question) {
-    questions.add(question);
+    question.selectedAnswer;
+    var itemIndex = questions.indexOf(question);
     questions.remove(question);
+    questions.insert(itemIndex, question);
   }
 }
